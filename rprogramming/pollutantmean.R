@@ -12,18 +12,12 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   ## Return the mean of the pollutant across all monitors list
   ## in the 'id' vector (ignoring NA values)
   v<-vector('numeric')
+  files<-list.files(directory,full.names=TRUE)
   
   for(file in id) {
-    if (file < 10) {
-        frame.data<- read.csv(paste(directory,"/","00",file,".csv",sep=""))
-        
-    }
-    else if (file < 100) {
-        frame.data<- read.csv(paste(directory,"/","0",file,".csv",sep=""))
-    }
-    else {
-        frame.data<- read.csv(paste(directory,"/",file,".csv",sep=""))
-    }
+    
+    frame.data<- read.csv(files[file])
+    
     if (pollutant=="sulfate") {
         v<-c(v,frame.data$sulfate)
     }
